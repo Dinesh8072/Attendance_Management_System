@@ -6,15 +6,17 @@ import {createBrowserRouter,RouterProvider} from 'react-router-dom'
 import Register from './Register.jsx'
 import Login from './Login.jsx'
 import AttendanceView from './AttendanceView.jsx'
+import Dashboard from './Dashboard.jsx'
 
 const router= createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
-      { path: 'register', element: <Register/> },
-      { path: 'login', element: <Login/> },
-      { path: 'attendance', element: <AttendanceView/> },
+      { path: '/register', element: <Register/> },
+      { path: '/login', element: <Login/> },
+      { path: '/attendance', element: <AttendanceView/> },
+      {path:'/dashboard', element: <Dashboard/> }
     ],
   },
 ])

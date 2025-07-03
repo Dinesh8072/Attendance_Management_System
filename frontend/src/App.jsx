@@ -25,10 +25,13 @@ export default function App() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <Link className="nav-link active" to="/register">Register</Link> |{" "}
-              <Link className="nav-link" to="/login">Login</Link> |{" "}
-              <Link className="nav-link" to="/attendance">View Attendance</Link> |{" "}
+              <Link className="nav-link active" to="/register">Register</Link> {" "}
+              <Link className="nav-link" to="/login">Login</Link> {" "}
+              
+              {userId && <Link className="nav-link" to="/attendance">View Attendance</Link> }
+              {userId && <Link className="nav-link" to="/dashboard">Dashboard</Link>}
               {userId &&<button onClick={handleLogout} type="button" className="btn btn-info">Logout</button>}
+             
             </div>
            </div>
          </div>
@@ -36,10 +39,10 @@ export default function App() {
       <hr />
       {!userId && (
         <div className="alert alert-warning text-center" role="alert">
-          You need to login
+          <p>You need to login</p>
         </div>
       )}
-      <Outlet context={{ setUserId }} />
+      <Outlet context={{ userId, setUserId }} />
       
     </div>
   );

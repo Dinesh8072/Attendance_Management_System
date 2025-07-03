@@ -7,7 +7,12 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status
 from .models import User, Attendance
 from .serializers import UserSerializer, AttendanceSerializer
+from django.db.models import Max
+from django.contrib.auth import get_user_model
+from rest_framework.response import Response
 import json
+
+User=get_user_model()
 
 @csrf_exempt
 @api_view(['POST'])
@@ -61,3 +66,38 @@ def attendance_list_view(request):
     attendances = Attendance.objects.all()
     serializer = AttendanceSerializer(attendances, many=True)
     return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+@api_view(['GET'])
+def dashboard_view(request):
+    if request.method == 'GET':
+        total_users = User.objects.count()
+        latest_logins = Attendance.objects.values('user__username').annotate(
+            last_login=Max('login_time')
+        )
+        return JsonResponse({
+            "total_users": total_users,
+            "latest_logins": list(latest_logins)
+        })
+
+
+@csrf_exempt
+def user_login_history(request):
+    if request.method == 'POST':
+        import json
+        data = json.loads(request.body)
+        user_id = data.get('user_id')
+
+        try:
+            user = User.objects.get(id=user_id)
+            logins = Attendance.objects.filter(user=user).order_by('-login_time')
+            login_data = [
+                {
+                    'login_time': login.login_time.strftime('%Y-%m-%d %H:%M:%S')
+                }
+                for login in logins
+            ]
+            return JsonResponse({'total_logins': len(login_data), 'history': login_data})
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User not found'}, status=404)
