@@ -9,5 +9,7 @@ class Attendance(models.Model):
     login_time = models.DateTimeField(auto_now_add=True)
     logout_time = models.DateTimeField(null=True, blank=True)
 
-    def __str__(self):
-        return f"{self.user.username} - {self.login_time}"
+    def duration_minutes(self):
+        if self.logout_time:
+            return (self.logout_time - self.login_time).total_seconds() / 60
+        return None

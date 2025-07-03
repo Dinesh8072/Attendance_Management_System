@@ -1,15 +1,16 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
 export default function App() {
   const [userId, setUserId] = useState(null);
-
+  let navigate=useNavigate()
   const handleLogout = async () => {
     try {
       await axios.post('http://localhost:8000/api/logout/', { user_id: userId });
       alert('Logged out successfully');
       setUserId(null);
+      navigate('/login')
     } catch {
       alert('Logout failed');
     }
@@ -25,9 +26,10 @@ export default function App() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <Link className="nav-link active" to="/register">Register</Link> {" "}
-              <Link className="nav-link" to="/login">Login</Link> {" "}
               
+              
+              {!userId && <Link className="nav-link" to="/login">Login</Link> }
+              {!userId && <Link className="nav-link active" to="/register">Register</Link> }
               {userId && <Link className="nav-link" to="/attendance">View Attendance</Link> }
               {userId && <Link className="nav-link" to="/dashboard">Dashboard</Link>}
               {userId &&<button onClick={handleLogout} type="button" className="btn btn-info">Logout</button>}

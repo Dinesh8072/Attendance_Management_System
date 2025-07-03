@@ -16,18 +16,40 @@ export default function Login() {
       }); 
       alert("Login success\nTime: " + res.data.login_time);
       setUserId(res.data.user_id);
-      navigate('/attendance');
+      navigate('/dashboard');
     } catch {
-      alert("Login failed");
+      alert("Login failed. Please check credentials.");
     }
   };
 
   return (
-    <div>
-      <h3>Login</h3>
-      <input placeholder="Username" onChange={e => setUsername(e.target.value)} /><br />
-      <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} /><br />
-      <button onClick={login}>Login</button>
+    <div className="container mt-5 d-flex justify-content-center">
+      <div className="card p-4 shadow" style={{ width: "400px" }}>
+        <h3 className="text-center mb-4">User Login</h3>
+        <div className="mb-3">
+          <label className="form-label">Username</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Enter password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+        <button className="btn btn-primary w-100" onClick={login}>
+          Login
+        </button>
+      </div>
     </div>
   );
 }

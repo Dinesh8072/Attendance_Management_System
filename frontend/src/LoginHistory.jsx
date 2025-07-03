@@ -28,11 +28,27 @@ export default function LoginHistory() {
         <p>Total Logins: {totalLogins}</p>
         <h6>Login History:</h6>
         {loginHistory.length > 0 ? (
-          <ul>
+            <ul>
             {loginHistory.map((entry, index) => (
-              <li key={index}>{new Date(entry.login_time).toLocaleString()}</li>
+                <li key={index}>
+                Login: {new Date(entry.login_time).toLocaleString()}
+                {entry.logout_time && (
+                    <>
+                    <br />
+                    Logout: {new Date(entry.logout_time).toLocaleString()}<br />
+                    Duration: {entry.duration_minutes} minutes
+                    </>
+                )}
+                {!entry.logout_time && (
+                    <>
+                    <br />
+                    Logout: <span className="text-warning">Not yet</span><br />
+                    Duration: <span className="text-info">Ongoing</span>
+                    </>
+                )}
+                </li>
             ))}
-          </ul>
+            </ul>
         ) : (
           <p className="text-muted">No login records found.</p>
         )}
