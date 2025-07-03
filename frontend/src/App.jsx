@@ -17,29 +17,30 @@ export default function App() {
 
   return (
     <div>
-      <h2>Attendance Management System</h2>
-      <nav>
-        
-        
-      </nav>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="#"> <h2>Attendance System</h2> </a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <Link class="nav-link active" to="/register">Register</Link> |{" "}
-              <Link class="nav-link" to="/login">Login</Link> |{" "}
-              <Link class="nav-link" to="/attendance">View Attendance</Link> |{" "}
-              {userId &&<button onClick={handleLogout} type="button" class="btn btn-info">Logout</button>}
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div className="navbar-nav">
+              <Link className="nav-link active" to="/register">Register</Link> |{" "}
+              <Link className="nav-link" to="/login">Login</Link> |{" "}
+              <Link className="nav-link" to="/attendance">View Attendance</Link> |{" "}
+              {userId &&<button onClick={handleLogout} type="button" className="btn btn-info">Logout</button>}
             </div>
            </div>
          </div>
         </nav>
       <hr />
+      {!userId && (
+        <div className="alert alert-warning text-center" role="alert">
+          You need to login
+        </div>
+      )}
       <Outlet context={{ setUserId }} />
+      
     </div>
   );
 }
