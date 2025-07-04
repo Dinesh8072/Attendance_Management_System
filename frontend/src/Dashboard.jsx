@@ -21,7 +21,7 @@ export default function Dashboard() {
     <div className="container mt-5">
       <h2 className="mb-4 text-center">Dashboard</h2>
 
-      {/* Total Users Card */}
+
       <div className="row mb-4 justify-content-center">
         <div className="col-md-4">
           <div className="card text-white bg-primary shadow">
@@ -33,7 +33,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Latest Logins Table */}
+
       <div className="card shadow mb-5">
         <div className="card-header bg-dark text-white">
           <h5 className="mb-0">Latest User Logins</h5>
@@ -63,7 +63,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Show individual login history only if logged in */}
       {userId && <LoginHistory />}
     </div>
   );

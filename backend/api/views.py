@@ -35,7 +35,6 @@ def login_view(request):
     user = authenticate(username=username, password=password)
 
     if user:
-        # ✅ Create attendance record on login
         attendance = Attendance.objects.create(user=user, login_time=datetime.now())
 
         return JsonResponse({
